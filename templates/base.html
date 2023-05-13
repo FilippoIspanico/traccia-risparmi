@@ -11,6 +11,12 @@
 <body>
 
 
+<div class="div-top-right">
+  Soldi risparmiati fin'ora: {{ risparmi_totali }}<br>
+</div>
+
+
+
 <p>
     Ciao, dimmi chi sei! :)
 </p>
@@ -33,11 +39,6 @@
 
 
  <div id='feedback-msg'></div>
-
-<div class="div-top-right">
-  Soldi risparmiati fin'ora: {{ risparmi_totali }}<br>
-</div>
-
 
 
 
@@ -72,7 +73,7 @@
         xhr.open('POST', '/');
         xhr.send(form);
 
-          document.getElementById("feedback-msg").innerHTML = "Messaggio inviato con successo!";
+          document.getElementById("feedback-msg").innerHTML = "Risparmio inserito con successo!";
       }
 
     </script>
