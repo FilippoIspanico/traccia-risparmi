@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>I Risparmi di Valeria e Filippo</title>
+     <link rel="stylesheet" href="../static/stile.css">
+
+
+</head>
+
+<body>
+
+
+<p>
+    Ciao, dimmi chi sei! :)
+</p>
+<img src="../static/IMG_0720.jpg" alt="testo alternativo" class = "img-container" >
+
+
+<button type = submit class="bottone" onclick="button_selected('Valeria')"></button> <span>Sono Valeria</span><br>
+
+
+<br>
+<button class="bottone" onclick="button_selected('Filippo')" ></button> <span>Sono Filippo</span> <br>
+
+<br>
+
+<div id="risultato"> </div>
+
+
+   <form id = "form_valore" method="POST" action = "/">
+   </form>
+
+
+ <div id='feedback-msg'></div>
+
+<div class="div-top-right">
+  Soldi risparmiati fin'ora: {{ risparmi_totali }}<br>
+</div>
+
+
+
+
+    <script>
+
+      var autore = "";
+
+      function button_selected(nomeBottone) {
+        document.getElementById("risultato").innerHTML = "Ciao " +
+            nomeBottone +
+            "! <br>" ;
+        var numericForm = document.getElementById("form_valore");
+        numericForm.innerHTML = "<label>Inserisci quanto hai risparmiato</label>" +
+            "<input type='number' name='risparmiato' id='risparmiato' required>" +
+            "<input type='submit' value='Invia' onclick='form_submit()'>";
+
+        autore = nomeBottone;
+      }
+
+
+      function form_submit() {
+
+          event.preventDefault();
+        var risparmiato = document.getElementById("risparmiato").value;
+
+        var form = new FormData();
+        form.append('autore', autore);
+        console.log(autore)
+        form.append('valore', risparmiato);
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/');
+        xhr.send(form);
+
+          document.getElementById("feedback-msg").innerHTML = "Messaggio inviato con successo!";
+      }
+
+    </script>
+</body>
+</html>

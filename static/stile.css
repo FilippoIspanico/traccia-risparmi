@@ -1,0 +1,41 @@
+.bottone {
+        display: inline-block;
+        background-color: #e7e7e7;
+        border: none;
+        border-radius: 50%;
+        color: #555555;
+        padding: 12px 12px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 16px;
+        margin: 4px 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+      }
+
+       .bottone:hover {
+        background-color: #726d6d;
+        color: #e7e7e7;
+      }
+
+      .span {
+        font-family: "Courier New";
+        font-weight: bold;
+        color: #726d6d;
+      }
+
+      .div-top-right {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 20%;
+    }
+
+    .img-container {
+         width: 50%;
+        height: auto;
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+    }
