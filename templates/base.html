@@ -12,10 +12,9 @@
 
 
 <div class="div-top-right">
-  Soldi risparmiati fin'ora: {{ risparmi_totali }}<br>
+  Soldi risparmiati fin'ora: {{ risparmi_totali }}; di questi {{ risparmi_valeria }} sono messi da Valeria e {{ risparmi_filippo }} da Filippo. <br>
+    Ma in realtà i soldi sono di tutti e due! :)
 </div>
-
-
 
 <p>
     Ciao, dimmi chi sei! :)
@@ -44,12 +43,16 @@
 
     <script>
 
-      var autore = "";
+      var autore = " ";
 
       function button_selected(nomeBottone) {
+          var string = "";
+          if (nomeBottone == "Valeria")
+              string += "Ti amo!";
         document.getElementById("risultato").innerHTML = "Ciao " +
             nomeBottone +
-            "! <br>" ;
+            "!" + string +
+            "<br> " ;
         var numericForm = document.getElementById("form_valore");
         numericForm.innerHTML = "<label>Inserisci quanto hai risparmiato</label>" +
             "<input type='number' name='risparmiato' id='risparmiato' required>" +

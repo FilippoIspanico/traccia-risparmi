@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I Risparmi di Valeria e Filippo</title>
+    <link rel="stylesheet" href="../static/stile.css">
+    <style>
+
+
+
+    </style>
+</head>
+
+<body>
+    <div class="div-top-right">
+        Soldi risparmiati fin'ora: {{ risparmi_totali }}! Di questi {{ risparmi_valeria }} sono messi da Valeria e
+        {{ risparmi_filippo }} da Filippo. <br> Ma in realtà i soldi sono di tutti e due! :)
+    </div>
+
+
+    <div class = "choice_container">
+        <img src="../static/IMG_0720.jpg" class="img-container">
+        <div class = "botton_container">
+            <button class = "choice_button" id = "add_money_button"> Aggiungi risparmio</button  >
+            <button class = "choice_button"  id="special-button"> Love </button>
+            <div class="dropdown">
+                <button class="choice_button">Opzioni</button>
+                <div class="dropdown-content">
+                  <a href="/logout">Logout</a>
+                  <a href="#">Imposta obiettivo di risparmio [Coming Soon!!]</a>
+                </div>
+        </div>
+        </div>
+    </div>
+
+
+
+    <div id="sprinkle-area"></div>
+
+    <form id="form_valore" style="display: none" method="POST" action="/">
+        <label>Inserisci quanto hai risparmiato: </label>
+        <br>
+        <input type="number" name="risparmiato" id="risparmiato" required>
+        <br>
+        <input type="submit" value="Invia" onclick="form_submit()">
+    </form>
+
+    <div id="feedback-msg"></div>
+
+    <script>
+
+        function form_submit() {
+            event.preventDefault();
+            var risparmiato = document.getElementById("risparmiato").value;
+            var form = new FormData();
+            form.append('valore', risparmiato);
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/');
+            xhr.send(form);
+            document.getElementById("feedback-msg").innerHTML = "Risparmio inserito con successo!";
+        }
+
+
+        // sprincler animation
+       document.getElementById('special-button').addEventListener('click', function() {
+        var sprinkleArea = document.getElementById('sprinkle-area');
+      for (var i = 0; i < 100; i++) {
+        var sprinkleText = document.createElement('div');
+        sprinkleText.className = 'sprinkle-text';
+        sprinkleText.textContent = 'Ti amo!';
+        sprinkleText.style.top = Math.random() * 100 + '%';
+        sprinkleText.style.animationDuration = Math.random() * 10 + 5 + 's';
+        sprinkleArea.appendChild(sprinkleText);
+      }
+        });
+
+        // modifing display of form
+        var add_money_button = document.getElementById("add_money_button");
+        var form_valore = document.getElementById("form_valore");
+
+        add_money_button.addEventListener("click", function() {
+            if (form_valore.style.display === "none") {
+                form_valore.style.display = "block";
+            } else {
+                form_valore.style.display = "none";
+            }
+        });
+
+
+    </script>
+</body>
+
+</html>

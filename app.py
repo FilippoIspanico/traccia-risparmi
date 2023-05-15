@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template, url_for, redirect
 from supabaseMgr import SupabaseMgr
-from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required
+from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
 from usersMgr import User
 
 app = Flask(__name__)
@@ -12,13 +12,15 @@ login_manager.init_app(app)
 DbMgr = SupabaseMgr()
 
 
-users = {'Valeria': {'password': 'filippo_6_il_meglio'},
-         'Filippo': {'password': 'valeria_6_la_meglio'}}
+users = {'Valeria': {'password': 'filippo'},
+         'Filippo': {'password': 'valeria'}}
 
 
 @login_manager.user_loader
 def load_user(user_id):
     return User(user_id)
+
+session = {}
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -27,6 +29,7 @@ def login():
         username = request.form['username']
         password = request.form['password']
         if username in users and password == users[username]['password']:
+            session["user"] = username
             user = User(username)
             login_user(user)
             return redirect(url_for('traccia_risparmi'))
@@ -42,16 +45,24 @@ def login():
 def traccia_risparmi():  # put application's code here
 
     if request.method == 'GET':
-        return render_template('base.html', risparmi_totali=DbMgr.risparmi_totali())
+        return render_template(
+            'template_di_prova.html',
+            risparmi_totali=DbMgr.risparmi_totali(),
+            risparmi_valeria=DbMgr.risparmi_attore("Valeria"),
+            risparmi_filippo=DbMgr.risparmi_attore("Filippo")
+                               )
     else:
 
         value = request.form['valore']
-        autore = request.form['autore']
+        print(session["user"])
+        DbMgr.aggiungi_risparmio(session["user"], value)
 
-        DbMgr.aggiungi_risparmio(autore, value)
-        return render_template('base.html', risparmi_totali=DbMgr.risparmi_totali())
-
-
+        return render_template(
+            'template_di_prova.html',
+            risparmi_totali=DbMgr.risparmi_totali(),
+            risparmi_valeria=DbMgr.risparmi_attore("Valeria"),
+            risparmi_filippo=DbMgr.risparmi_attore("Filippo")
+                               )
 
 @app.route('/logout')
 @login_required
