@@ -49,7 +49,8 @@ def traccia_risparmi():  # put application's code here
             'template_di_prova.html',
             risparmi_totali=DbMgr.risparmi_totali(),
             risparmi_valeria=DbMgr.risparmi_attore("Valeria"),
-            risparmi_filippo=DbMgr.risparmi_attore("Filippo")
+            risparmi_filippo=DbMgr.risparmi_attore("Filippo"),
+            utente = session["user"]
                                )
     else:
 
@@ -61,7 +62,8 @@ def traccia_risparmi():  # put application's code here
             'template_di_prova.html',
             risparmi_totali=DbMgr.risparmi_totali(),
             risparmi_valeria=DbMgr.risparmi_attore("Valeria"),
-            risparmi_filippo=DbMgr.risparmi_attore("Filippo")
+            risparmi_filippo=DbMgr.risparmi_attore("Filippo"),
+            utente = session["user"]
                                )
 
 @app.route('/logout')
